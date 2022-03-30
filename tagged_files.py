@@ -59,6 +59,36 @@ def clear_tags():
 
     db_base.close()
 
+def tags_list():
+    db_base = open_db()
+
+    files_list = []
+    for key in db_base.keys():
+        files_list.append(db_base[key])
+
+    tags_info_list = FileInfo.list_of_tags(files_list)
+
+    tags_list = list(tags_info_list.keys())
+
+    tags_outputs = map(lambda key: f'{key}({tags_info_list[key]})', tags_list)
+    tags_cloud = ', '.join(tags_outputs)
+    print(tags_cloud)
+
+    db_base.close()
+
+def find_by_tags():
+    db_base = open_db()
+    tags_string = sys.argv[2]
+    tags_list = tags_string.split(',')
+
+    for key in db_base.keys():
+        file_info = db_base[key]
+        #pdb.set_trace()
+        if file_info.match_for_tags(tags_list):
+            print(f'{key} => {file_info.file_name} => {file_info.tags}')
+
+    db_base.close()
+
 
 command = sys.argv[1]
 
@@ -71,5 +101,9 @@ match command:
         add_tags_to_file()
     case 'clear_tags':
         clear_tags()
+    case 'tags_list':
+        tags_list()
+    case 'find':
+        find_by_tags()
 
 #pdb.set_trace()
