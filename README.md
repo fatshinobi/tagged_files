@@ -1,5 +1,5 @@
 # Lintity
-Command Line application for tagging of files
+Command Line application for tagging files
 
 ## System Requirements
   * Python >= 3.10
