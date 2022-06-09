@@ -1,4 +1,4 @@
-# Lintity
+# Tagged Files
 Command Line application for tagging files
 
 ## System Requirements
